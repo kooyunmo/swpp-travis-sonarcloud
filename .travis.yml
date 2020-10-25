@@ -1,6 +1,6 @@
 matrix:
   include:
-    - language: python
+    - language: node_js
       node_js: '10'
       python: '3.7.9'
       dist: xenial
