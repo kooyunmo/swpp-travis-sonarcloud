@@ -2,6 +2,11 @@ matrix:
   include:
     - language: node_js
       node_js: '12'
+      addons:
+        sonarcloud:
+          organization: kooyunmo
+          token:
+            secure: e9ee3a20227feb6f1e5172d27d96fbe2b8eaafdf
       cache:
         - yarn: true
       before_install:
@@ -11,9 +16,16 @@ matrix:
       script:
         - ./node_modules/.bin/eslint src/
         - yarn test --coverage --watchAll=false
+        - cd ..
+        - sonar-scanner
 
     - language: python
       python: '3.7'
+      addons:
+        sonarcloud:
+          organization: kooyunmo
+          token:
+            secure: e9ee3a20227feb6f1e5172d27d96fbe2b8eaafdf
       cache:
         - pip: true
       before_instll:
@@ -24,3 +36,6 @@ matrix:
         - pylint **/*.py --load-plugins pylint_django
         - coverage run --source='.' manage.py test
         - coverage xml
+        - cd ..
+        - sonar-scanner
+
