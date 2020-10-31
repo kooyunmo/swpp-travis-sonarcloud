@@ -6,7 +6,7 @@ matrix:
         sonarcloud:
           organization: kooyunmo
           token:
-            secure: e9ee3a20227feb6f1e5172d27d96fbe2b8eaafdf
+            secure: "kanuaEAAYenG7+/rYVCZfYl8s7nYNcWZ+xr1m0u+KWUcilSZ1izZ73xyBvZxAVtRWVcwgsHAMOMXIidg/BVFq1pDO/mrqHzBOdqiNRESGBaQkXTHIfJbvp2QAH79HTKHQnZOBTrZjIullszInKaLD7F23lyG28TQeUNNdlykJTCF3MlKJ23eOEmNvRW/CCmsiJm/f6Pdu2SAF5unhHlB+VkzEZLa0D0I/BdS7udf0wNeekSdhP/2KJ0Rk7LjU4tQrPtu8ovZm3zzTHu34UoUONMS3wnEWdKpZjgUgplP7S5agiQtYjUB46C/TgooWjp4HjgLuByWGicqgFBMStq0FSoYo4ZGA6469Q66KwlLxx+ZjSxRLq5JqUvfdwCt5JR4p5WEYvxWgjWeKJAGHY8cc3vV/2P/z0DrRHdq0EZrMho1JINCuO5g8Kt16+oehExT0OoZxOBX7mSCDnd32twSmFrmJ0wi6T6ChsuFGQTjWpBkiI0tAag3oHJ8V/5YWkmVAtGzzzXiit0xGgAu9FhsMg126pNC2piQYUNVd/LdY6gn+fSF3TsQdMU9lu2KaofCPhmlWhzSG90HzoXFRXLr8qsxy/yi7LU/clW/J53q9kY1k0p9jQjU1UsX1qJ5vk6nwNogdNeWW31pzY2yuN0/MzWAWvnuLGR5DjFyqfyS7G4="
       cache:
         - yarn: true
       before_install:
