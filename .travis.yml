@@ -1,26 +1,41 @@
 matrix:
   include:
     - language: node_js
-      node_js: 10
-      python: 3.7
-      dist: xenial
-      services: sqlite3
+      node_js: '12'
+      addons:
+        sonarcloud:
+          organization: kooyunmo
+          token:
+            secure: "kanuaEAAYenG7+/rYVCZfYl8s7nYNcWZ+xr1m0u+KWUcilSZ1izZ73xyBvZxAVtRWVcwgsHAMOMXIidg/BVFq1pDO/mrqHzBOdqiNRESGBaQkXTHIfJbvp2QAH79HTKHQnZOBTrZjIullszInKaLD7F23lyG28TQeUNNdlykJTCF3MlKJ23eOEmNvRW/CCmsiJm/f6Pdu2SAF5unhHlB+VkzEZLa0D0I/BdS7udf0wNeekSdhP/2KJ0Rk7LjU4tQrPtu8ovZm3zzTHu34UoUONMS3wnEWdKpZjgUgplP7S5agiQtYjUB46C/TgooWjp4HjgLuByWGicqgFBMStq0FSoYo4ZGA6469Q66KwlLxx+ZjSxRLq5JqUvfdwCt5JR4p5WEYvxWgjWeKJAGHY8cc3vV/2P/z0DrRHdq0EZrMho1JINCuO5g8Kt16+oehExT0OoZxOBX7mSCDnd32twSmFrmJ0wi6T6ChsuFGQTjWpBkiI0tAag3oHJ8V/5YWkmVAtGzzzXiit0xGgAu9FhsMg126pNC2piQYUNVd/LdY6gn+fSF3TsQdMU9lu2KaofCPhmlWhzSG90HzoXFRXLr8qsxy/yi7LU/clW/J53q9kY1k0p9jQjU1UsX1qJ5vk6nwNogdNeWW31pzY2yuN0/MzWAWvnuLGR5DjFyqfyS7G4="
       cache:
         - yarn: true
-        - pip: true
+      before_install:
+        - cd frontend
       install:
-        - cd frontend
         - yarn install
-        - cd ..
-        - cd backend
-        - pip install -r requirements.txt
-        - cd ..
       script:
-        - cd frontend
-        - ./node_modules/.bin/eslint src
+        - ./node_modules/.bin/eslint src/
         - yarn test --coverage --watchAll=false
         - cd ..
+        - sonar-scanner
+
+    - language: python
+      python: '3.7'
+      addons:
+        sonarcloud:
+          organization: kooyunmo
+          token:
+            secure: "kanuaEAAYenG7+/rYVCZfYl8s7nYNcWZ+xr1m0u+KWUcilSZ1izZ73xyBvZxAVtRWVcwgsHAMOMXIidg/BVFq1pDO/mrqHzBOdqiNRESGBaQkXTHIfJbvp2QAH79HTKHQnZOBTrZjIullszInKaLD7F23lyG28TQeUNNdlykJTCF3MlKJ23eOEmNvRW/CCmsiJm/f6Pdu2SAF5unhHlB+VkzEZLa0D0I/BdS7udf0wNeekSdhP/2KJ0Rk7LjU4tQrPtu8ovZm3zzTHu34UoUONMS3wnEWdKpZjgUgplP7S5agiQtYjUB46C/TgooWjp4HjgLuByWGicqgFBMStq0FSoYo4ZGA6469Q66KwlLxx+ZjSxRLq5JqUvfdwCt5JR4p5WEYvxWgjWeKJAGHY8cc3vV/2P/z0DrRHdq0EZrMho1JINCuO5g8Kt16+oehExT0OoZxOBX7mSCDnd32twSmFrmJ0wi6T6ChsuFGQTjWpBkiI0tAag3oHJ8V/5YWkmVAtGzzzXiit0xGgAu9FhsMg126pNC2piQYUNVd/LdY6gn+fSF3TsQdMU9lu2KaofCPhmlWhzSG90HzoXFRXLr8qsxy/yi7LU/clW/J53q9kY1k0p9jQjU1UsX1qJ5vk6nwNogdNeWW31pzY2yuN0/MzWAWvnuLGR5DjFyqfyS7G4="
+      cache:
+        - pip: true
+      before_instll:
         - cd backend
+      install:
+        - pip install -r requirements.txt
+      script:
         - pylint **/*.py --load-plugins pylint_django
         - coverage run --source='.' manage.py test
         - coverage xml
+        - cd ..
+        - sonar-scanner
+
